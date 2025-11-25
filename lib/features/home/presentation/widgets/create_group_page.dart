@@ -306,7 +306,7 @@ class _GroupPageState extends State<GroupPage> {
                       borderRadius: BorderRadius.circular(12.r),
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.primary[100]!.withValues(alpha:0.2),
+                          color: AppColors.primary[100]!.withValues(alpha: 0.2),
                           blurRadius: 8.r,
                           offset: Offset(0, 2.h),
                         ),
@@ -375,41 +375,58 @@ class _GroupPageState extends State<GroupPage> {
                         SizedBox(height: 16.h),
                         // Add Button
                         Center(
-                          child: ElevatedButton(
-                            onPressed: _addUser,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.green[500],
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.r),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: const [
+                                  Color(0xFF654AD2),
+                                  Color(0xFF2173CF),
+                                  Color(0xFF247CCC),
+                                  Color(0xFF36B1BD),
+                                ],
+                                stops: const [0.0, 0.4, 0.49, 1.0],
                               ),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 24.w,
-                                vertical: 12.h,
-                              ),
+                              borderRadius: BorderRadius.circular(12.r),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 20.sp,
-                                ),
-                                SizedBox(width: 8.w),
-                                Text(
-                                  tr('group.add_user'),
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(12.r),
+                                onTap: _addUser,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 16.w,
+                                    vertical: 8.h,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        Icons.add,
+                                        color: Colors.white,
+                                        size: 18.sp,
+                                      ),
+                                      SizedBox(width: 8.w),
+                                      Text(
+                                        tr('group.add_user'),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
                         ),
                       ],
                     ),
-                  ),SizedBox(height: 16.h),
+                  ),
+                  SizedBox(height: 16.h),
                   // Import CSV Button
                   Center(
                     child: ElevatedButton.icon(
@@ -536,31 +553,47 @@ class _GroupPageState extends State<GroupPage> {
               child: Column(
                 children: [
                   // Generate Assignments Button
-                  SizedBox(
+                  Container(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _generateAssignments,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.green[500],
-                        padding: EdgeInsets.symmetric(vertical: 16.h),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.r),
-                        ),
-                        elevation: 4,
-                        shadowColor: AppColors.green[500]!.withValues(
-                          alpha: 0.3,
-                        ),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: const [
+                          Color(0xFF654AD2),
+                          Color(0xFF2173CF),
+                          Color(0xFF247CCC),
+                          Color(0xFF36B1BD),
+                        ],
+                        stops: const [0.0, 0.4, 0.49, 1.0],
                       ),
-                      child: Text(
-                        tr('group.generate_assignments'),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.sp,
-                          fontWeight: FontWeight.bold,
+                      borderRadius: BorderRadius.circular(12.r),
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(12.r),
+                        onTap: _generateAssignments,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 16.w,
+                            vertical: 16.w,
+                          ),
+                          child: Center(
+                            child: Text(
+                              tr('group.generate_assignments'),
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 16.sp,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
+
                   SizedBox(height: 16.h),
                   // Generate PDF Button
                   SizedBox(
@@ -592,11 +625,8 @@ class _GroupPageState extends State<GroupPage> {
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.red[500],
-                        side: BorderSide(
-                          color: Colors.white,
-                          width: 2,
-                        ),
+                        backgroundColor: AppColors.primary[500],
+                        side: BorderSide(color: Colors.white, width: 2),
                         padding: EdgeInsets.symmetric(
                           horizontal: 24.w,
                           vertical: 16.h,
@@ -617,19 +647,20 @@ class _GroupPageState extends State<GroupPage> {
                       onPressed: _exportToCSV,
                       icon: Icon(
                         Icons.download,
-                        color: Colors.white,
+                        color: AppColors.cyan,
                         size: 20.sp,
                       ),
                       label: Text(
                         tr('group.export_csv'),
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.cyan,
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: Colors.white,
+                        side: BorderSide(color: AppColors.cyan, width: 2),
                         padding: EdgeInsets.symmetric(
                           horizontal: 24.w,
                           vertical: 16.h,

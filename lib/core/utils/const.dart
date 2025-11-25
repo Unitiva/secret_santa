@@ -9,7 +9,7 @@ class AppColors {
 
   // Varianti di blu
   static const Color darkBlue = Color(0xFFE6F3F5); // --light-blue
-  static const Color cyan = Color(0xFF36B0BD); // --eyebrow-secondary-color
+  static const Color cyan = Color(0xFF36B1BD); // --eyebrow-secondary-color
 
   static const MaterialColor green = MaterialColor(0xFF006400, <int, Color>{
     50: Color(0xFFE8F5E8),
