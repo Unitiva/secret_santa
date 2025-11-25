@@ -1,0 +1,42 @@
+{
+  "app_name": "Secret Santa",
+  "welcome": "Il mistero dei regali segreti inizia ora!",
+  "homepage": {
+    "title": "Pagina Iniziale",
+    "greeting": "Ciao, {name}!"
+  },
+  "messages": {
+    "network_error": "Errore di connessione",
+    "server_error": "Errore del server",
+    "data_saved": "Dati salvati con successo",
+    "confirm_delete": "Sei sicuro di voler eliminare questo elemento?",
+    "invalid_email": "Inserisci un indirizzo email valido",
+    "name_and_email_required": "Nome e email sono obbligatori"
+  },
+  "home": {
+    "ready_for_secret_santa": "Pronti per il Secret Santa?",
+    "create_group_description": "Crea un gruppo per iniziare l'avventura dei regali segreti!",
+    "create_new_group": "Crea un nuovo gruppo"
+  },
+  "group": {
+    "create_group": "Crea Gruppo",
+    "group_name": "Nome del gruppo",
+    "add_users": "Aggiungi Utenti",
+    "name": "Nome",
+    "email": "Email",
+    "add_user": "Aggiungi Utente",
+    "import_csv": "Importa da CSV",
+    "users": "Utenti",
+    "no_users_added": "Nessun utente aggiunto",
+    "at_least_two_users": "Sono richiesti almeno due utenti",
+    "generate_assignments": "Genera assegnazioni",
+    "generate_pdf": "Genera PDF",
+    "generating": "Generando...",
+    "export_csv": "Esporta CSV",
+    "no_users_to_export": "Nessun utente da esportare",
+    "assignments_generated": "Assegnazioni generate!",
+    "no_assignments_to_export": "Nessuna assegnazione da esportare",
+    "pdf_generated_successfully": "PDF generato con successo!",
+    "assignments_secret_santa": "Assegnazioni Secret Santa - Gruppo: {groupName}"
+  }
+}
