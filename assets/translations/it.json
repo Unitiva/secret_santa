@@ -11,7 +11,9 @@
     "data_saved": "Dati salvati con successo",
     "confirm_delete": "Sei sicuro di voler eliminare questo elemento?",
     "invalid_email": "Inserisci un indirizzo email valido",
-    "name_and_email_required": "Nome e email sono obbligatori"
+    "name_and_email_required": "Nome e email sono obbligatori",
+    "select_csv_file": "Seleziona un file CSV.",
+    "unable_to_read_file": "Impossibile leggere il contenuto del file"
   },
   "home": {
     "ready_for_secret_santa": "Pronti per il Secret Santa?",

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -80,12 +82,35 @@ class _GroupPageState extends State<GroupPage> {
 
   void _importFromCSV() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['csv'],
+      type: FileType.any,
     );
     if (result != null) {
       final file = result.files.first;
-      final content = String.fromCharCodes(file.bytes!);
+      if (!file.name.toLowerCase().endsWith('.csv')) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: AppColors.red[500],
+            content: Text(tr('messages.select_csv_file')),
+          ),
+        );
+        return;
+      }
+
+      String content;
+      if (file.bytes != null) {
+        content = String.fromCharCodes(file.bytes!);
+      } else if (file.path != null) {
+        final fileObj = File(file.path!);
+        content = await fileObj.readAsString();
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            backgroundColor: AppColors.red[500],
+            content: Text(tr('messages.unable_to_read_file')),
+          ),
+        );
+        return;
+      }
       final lines = content.split('\n');
       for (var line in lines.skip(1)) {
         final parts = line.split(',');
@@ -143,34 +168,50 @@ class _GroupPageState extends State<GroupPage> {
 
     final pdf = pw.Document();
 
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) {
-          return pw.Column(
-            crossAxisAlignment: pw.CrossAxisAlignment.start,
-            children: [
-              pw.Text(
-                tr(
-                  'group.assignments_secret_santa',
-                  namedArgs: {'groupName': groupName},
+    const int itemsPerPage = 20;
+    List<List<MapEntry<User, User>>> chunks = [];
+    List<MapEntry<User, User>> entries = assignments.entries.toList();
+    for (int i = 0; i < entries.length; i += itemsPerPage) {
+      chunks.add(
+        entries.sublist(
+          i,
+          i + itemsPerPage > entries.length ? entries.length : i + itemsPerPage,
+        ),
+      );
+    }
+
+    for (int i = 0; i < chunks.length; i++) {
+      pdf.addPage(
+        pw.Page(
+          build: (pw.Context context) {
+            return pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                if (i == 0) ...[
+                  pw.Text(
+                    tr(
+                      'group.assignments_secret_santa',
+                      namedArgs: {'groupName': groupName},
+                    ),
+                    style: pw.TextStyle(
+                      fontSize: 24,
+                      fontWeight: pw.FontWeight.bold,
+                    ),
+                  ),
+                  pw.SizedBox(height: 20),
+                ],
+                ...chunks[i].map(
+                  (entry) => pw.Text(
+                    '${entry.key.displayName} -> ${entry.value.displayName}',
+                    style: pw.TextStyle(fontSize: 16),
+                  ),
                 ),
-                style: pw.TextStyle(
-                  fontSize: 24,
-                  fontWeight: pw.FontWeight.bold,
-                ),
-              ),
-              pw.SizedBox(height: 20),
-              ...assignments.entries.map(
-                (entry) => pw.Text(
-                  '${entry.key.displayName} -> ${entry.value.displayName}',
-                  style: pw.TextStyle(fontSize: 16),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
+              ],
+            );
+          },
+        ),
+      );
+    }
 
     await Printing.sharePdf(
       bytes: await pdf.save(),
